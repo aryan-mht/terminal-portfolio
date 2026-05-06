@@ -107,4 +107,4 @@ refactor: extract useCommandHistory into separate hook
 ```
 
 Every commit must pass `npm run build` and `npm run lint`. Include co-author trailer:
-`Co-authored-by: codex <codex@openai.com>`
+`Co-authored-by: Claude <noreply@anthropic.com>`
