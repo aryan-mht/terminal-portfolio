@@ -24,26 +24,26 @@ export function Navbar() {
       <div className="flex items-center gap-2" aria-hidden="true">
         <span
           className="rounded-full"
-          style={{ width: 14, height: 14, background: '#ff5f57' }}
+          style={{ width: 16, height: 16, background: '#ff5f57' }}
         />
         <span
           className="rounded-full"
-          style={{ width: 14, height: 14, background: '#ffbd2e' }}
+          style={{ width: 16, height: 16, background: '#ffbd2e' }}
         />
         <span
           className="rounded-full"
-          style={{ width: 14, height: 14, background: '#28c840' }}
+          style={{ width: 16, height: 16, background: '#28c840' }}
         />
       </div>
 
-      <div className="flex items-center gap-2 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
+      <div className="flex items-center gap-3 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
         {NAV_COMMANDS.map((cmd) => (
           <button
             key={cmd}
             aria-label={`Run ${cmd} command`}
-            className="shrink-0 rounded px-3 py-1"
+            className="shrink-0 rounded px-4 py-1.5"
             style={{
-              fontSize: 'var(--text-sm)',
+              fontSize: 'var(--text-base)',
               fontFamily: 'var(--font-mono)',
               color: 'var(--color-accent)',
               background: 'transparent',
