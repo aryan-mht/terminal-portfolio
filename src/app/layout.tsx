@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Press_Start_2P } from "next/font/google";
+import { Navbar } from "@/components/layout/navbar";
+import { StatusBar } from "@/components/layout/status-bar";
 import "./globals.css";
 
 const jetbrainsMono = JetBrains_Mono({
@@ -17,7 +19,8 @@ const pressStart2P = Press_Start_2P({
 
 export const metadata: Metadata = {
   title: "Aryan Mehta — Software Engineer",
-  description: "Terminal portfolio of Aryan Mehta, Software Engineering Honours student at USask.",
+  description:
+    "Terminal portfolio of Aryan Mehta, Software Engineering Honours student at USask.",
 };
 
 export default function RootLayout({
@@ -28,7 +31,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${jetbrainsMono.variable} ${pressStart2P.variable}`}>
+        <Navbar />
         {children}
+        <StatusBar />
       </body>
     </html>
   );
