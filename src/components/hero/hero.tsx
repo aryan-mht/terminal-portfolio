@@ -12,48 +12,53 @@ export function Hero() {
     <div
       style={{
         padding: 'var(--terminal-padding)',
+        paddingTop: '2.5rem',
         paddingBottom: '2rem',
         fontFamily: 'var(--font-mono)',
       }}
     >
-      <div
-        aria-hidden="true"
-        style={{
-          width: 56,
-          height: 56,
-          borderRadius: '50%',
-          border: '2px solid var(--color-accent)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginBottom: '1.25rem',
-          color: 'var(--color-accent)',
-          fontSize: '1.5rem',
-          fontWeight: 700,
-          fontFamily: 'var(--font-mono)',
-        }}
-      >
-        A
+      {/* Logo + Name row */}
+      <div className="flex items-center gap-6" style={{ marginBottom: '1rem' }}>
+        <div
+          aria-hidden="true"
+          style={{
+            width: 90,
+            height: 90,
+            borderRadius: '50%',
+            border: '2px solid rgba(255,255,255,0.6)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+            color: '#ffffff',
+            fontSize: '2.25rem',
+            fontWeight: 700,
+            fontFamily: 'var(--font-pixel)',
+          }}
+        >
+          A
+        </div>
+
+        <div>
+          <AsciiName />
+          <p
+            style={{
+              color: 'var(--color-muted)',
+              fontSize: 'var(--text-sm)',
+              margin: '0.5rem 0 0',
+            }}
+          >
+            Software Engineer · USask · Open to new grad roles
+          </p>
+        </div>
       </div>
-
-      <AsciiName />
-
-      <p
-        style={{
-          color: 'var(--color-muted)',
-          fontSize: 'var(--text-sm)',
-          margin: '0.75rem 0 1.5rem',
-        }}
-      >
-        Software Engineer · USask · Open to new grad roles
-      </p>
 
       <BootSequence onComplete={handleComplete} />
 
       {bootDone && (
         <div
           style={{
-            marginTop: '0.5rem',
+            marginTop: '1rem',
             height: '1px',
             background: 'var(--color-border)',
           }}

@@ -4,17 +4,12 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 const LINES = [
-  'Initializing aryan@portfolio...',
-  'Loading modules..............  done',
-  'Establishing connection......  done',
-  'Mounting filesystem..........  done',
-  '',
-  "Welcome to Aryan's Terminal Portfolio",
-  "Type 'help' or '?' to see commands.",
+  { text: "Welcome to Aryan's Terminal Portfolio", muted: false },
+  { text: "Type 'help' or '?' to view a list of available commands.", muted: true },
 ];
 
 const STAGGER_MS = 400;
-const COMPLETE_DELAY_MS = 500;
+const COMPLETE_DELAY_MS = 300;
 
 interface BootSequenceProps {
   onComplete: () => void;
@@ -51,26 +46,36 @@ export function BootSequence({ onComplete }: BootSequenceProps) {
   }, [onComplete, shouldReduceMotion]);
 
   return (
-    <div
-      style={{
-        fontFamily: 'var(--font-mono)',
-        fontSize: 'var(--text-sm)',
-        color: 'var(--color-muted)',
-        lineHeight: 1.8,
-      }}
-    >
+    <div style={{ marginTop: '1.25rem' }}>
       {LINES.slice(0, visibleCount).map((line, i) =>
         shouldReduceMotion ? (
-          <div key={i} style={{ minHeight: '1.4em' }}>{line}</div>
+          <div
+            key={i}
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: 'var(--text-base)',
+              fontWeight: line.muted ? 400 : 700,
+              color: line.muted ? 'var(--color-muted)' : '#ffffff',
+              marginBottom: '0.4rem',
+            }}
+          >
+            {line.text}
+          </div>
         ) : (
           <motion.div
             key={i}
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
-            style={{ minHeight: '1.4em' }}
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: 'var(--text-base)',
+              fontWeight: line.muted ? 400 : 700,
+              color: line.muted ? 'var(--color-muted)' : '#ffffff',
+              marginBottom: '0.4rem',
+            }}
           >
-            {line}
+            {line.text}
           </motion.div>
         )
       )}
