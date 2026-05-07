@@ -68,7 +68,7 @@ export function StatusBar() {
         background: "var(--color-surface)",
         borderTop: "1px solid var(--color-border)",
         color: "var(--color-muted)",
-        fontSize: "var(--text-xs)",
+        fontSize: "var(--text-sm)",
         fontFamily: "var(--font-mono)",
       }}
     >
