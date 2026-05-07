@@ -5,23 +5,7 @@ import { experience, type Experience } from "@/data/experience";
 import { Card } from "./card";
 
 function Tag({ children }: { children: string }) {
-  return (
-    <span
-      style={{
-        display: "inline-block",
-        fontSize: "var(--text-xs)",
-        color: "var(--color-accent)",
-        background: "var(--color-surface)",
-        border: "1px solid var(--color-border)",
-        borderRadius: 4,
-        padding: "0.15rem 0.5rem",
-        marginRight: "0.4rem",
-        marginBottom: "0.4rem",
-      }}
-    >
-      {children}
-    </span>
-  );
+  return <span className="tech-tag">{children}</span>;
 }
 
 function Role({ entry, delay }: { entry: Experience; delay: number }) {
