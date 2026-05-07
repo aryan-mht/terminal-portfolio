@@ -13,6 +13,7 @@ interface TerminalInputProps {
 export function TerminalInput({ onSubmit }: TerminalInputProps) {
   const [value, setValue] = useState("");
   const [autocompleteOpen, setAutocompleteOpen] = useState(true);
+  const [focused, setFocused] = useState(true);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { addToHistory, navigateUp, navigateDown, reset: resetHistory } = useCommandHistory();
@@ -98,7 +99,7 @@ export function TerminalInput({ onSubmit }: TerminalInputProps) {
         style={{
           display: "flex",
           alignItems: "center",
-          gap: "0.25rem",
+          gap: 0,
           fontFamily: "var(--font-mono)",
           fontSize: "0.95rem",
           marginTop: "0.5rem",
@@ -115,13 +116,15 @@ export function TerminalInput({ onSubmit }: TerminalInputProps) {
             setAutocompleteOpen(true);
           }}
           onKeyDown={onKeyDown}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
           autoCapitalize="off"
           autoCorrect="off"
           autoComplete="off"
           spellCheck={false}
           aria-label="Terminal input"
           style={{
-            flex: 1,
+            width: `${value.length}ch`,
             background: "transparent",
             border: "none",
             outline: "none",
@@ -129,9 +132,14 @@ export function TerminalInput({ onSubmit }: TerminalInputProps) {
             fontFamily: "inherit",
             fontSize: "inherit",
             padding: 0,
-            caretColor: "var(--color-accent)",
+            caretColor: "transparent",
           }}
         />
+        <span
+          aria-hidden="true"
+          className={focused ? "terminal-cursor" : "terminal-cursor idle"}
+        />
+        <span style={{ flex: 1 }} aria-hidden="true" />
       </label>
       <Autocomplete
         suggestions={autocompleteOpen ? suggestions : []}
