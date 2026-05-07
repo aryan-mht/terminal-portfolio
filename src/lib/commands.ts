@@ -182,8 +182,8 @@ export const commands: Command[] = [
   },
   {
     name: "man",
-    description: "Show usage for a command",
-    usage: "man [command]",
+    description: "Show manual for command",
+    usage: "man <command>",
     category: "utility",
     handler: (args) => manHandler(args),
   },
@@ -208,36 +208,16 @@ function manHandler(args: string[]): ReactNode {
       `No manual entry for ${topic}`
     );
   }
-  const lines: ReactNode[] = [
-    createElement(
-      "div",
-      { key: "name", style: { color: "var(--color-text)" } },
-      `NAME    ${getCommandTopic(target)}`
-    ),
-    createElement(
-      "div",
-      { key: "usage", style: { color: "var(--color-muted)", marginTop: "0.25rem" } },
-      `USAGE   ${target.usage}`
-    ),
-    createElement(
-      "div",
-      { key: "desc", style: { color: "var(--color-muted)", marginTop: "0.25rem" } },
-      `DESC    ${target.description}`
-    ),
-  ];
-  if (target.aliases?.length) {
-    lines.push(
-      createElement(
-        "div",
-        { key: "aliases", style: { color: "var(--color-muted)", marginTop: "0.25rem" } },
-        `ALIASES ${target.aliases.join(", ")}`
-      )
-    );
-  }
+  const topicName = getCommandTopic(target);
+  const argTail = target.usage.startsWith(target.name)
+    ? target.usage.slice(target.name.length)
+    : "";
+  const head = `${topicName}${argTail}`;
+  const desc = target.description.replace(/\.+$/, "");
   return createElement(
     "div",
-    { style: { fontFamily: "var(--font-mono)" } },
-    ...lines
+    { style: { fontFamily: "var(--font-mono)", color: "#d1d5db" } },
+    `${head} — ${desc}.`
   );
 }
 
