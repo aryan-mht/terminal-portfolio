@@ -76,6 +76,20 @@ body {
   80%      { transform: translate(0, 1px); }
 }
 
+.terminal-cursor {
+  display: inline-block;
+  width: 0.6em;
+  height: 1em;
+  background: #d1d5db;
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+}
+
+.terminal-cursor.idle {
+  animation: none;
+  opacity: 0.6;
+}
+
 .tech-tag {
   position: relative;
   display: inline-block;
