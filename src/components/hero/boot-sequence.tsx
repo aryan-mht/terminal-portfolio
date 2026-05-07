@@ -1,16 +1,23 @@
+import { VT323 } from 'next/font/google';
+
+const vt323 = VT323({
+  subsets: ['latin'],
+  weight: '400',
+  display: 'swap',
+});
+
 export function BootSequence() {
   return (
     <div
+      className={vt323.className}
       style={{
-        fontFamily: 'var(--font-retro)',
         marginTop: '2rem',
         lineHeight: 1.2,
       }}
     >
       <div
         style={{
-          fontSize: '2rem',
-          fontWeight: 400,
+          fontSize: '2.25rem',
           color: '#ffffff',
           letterSpacing: '0.02em',
         }}
@@ -19,7 +26,7 @@ export function BootSequence() {
       </div>
       <div
         style={{
-          fontSize: '1.5rem',
+          fontSize: '1.65rem',
           color: '#d1d5db',
           marginTop: '0.75rem',
           letterSpacing: '0.02em',
@@ -29,7 +36,7 @@ export function BootSequence() {
       </div>
       <div
         style={{
-          fontSize: '1.5rem',
+          fontSize: '1.65rem',
           color: '#d1d5db',
           marginTop: '0.5rem',
           letterSpacing: '0.02em',
