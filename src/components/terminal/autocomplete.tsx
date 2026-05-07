@@ -22,7 +22,7 @@ export function Autocomplete({ suggestions, selectedIndex, onSelect }: Autocompl
         fontFamily: "var(--font-mono)",
         fontSize: "var(--text-base)",
         fontStyle: "italic",
-        marginBottom: "0.5rem",
+        marginTop: "0.75rem",
         lineHeight: 1.5,
       }}
     >

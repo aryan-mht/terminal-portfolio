@@ -97,15 +97,6 @@ export function TerminalInput({ onSubmit }: TerminalInputProps) {
 
   return (
     <div>
-      <Autocomplete
-        suggestions={autocompleteOpen ? suggestions : []}
-        selectedIndex={selectedIndex}
-        onSelect={(name) => {
-          setValue(name);
-          resetAutocomplete();
-          requestAnimationFrame(() => inputRef.current?.focus());
-        }}
-      />
       <label
         style={{
           display: "flex",
@@ -143,6 +134,15 @@ export function TerminalInput({ onSubmit }: TerminalInputProps) {
           }}
         />
       </label>
+      <Autocomplete
+        suggestions={autocompleteOpen ? suggestions : []}
+        selectedIndex={selectedIndex}
+        onSelect={(name) => {
+          setValue(name);
+          resetAutocomplete();
+          requestAnimationFrame(() => inputRef.current?.focus());
+        }}
+      />
     </div>
   );
 }
