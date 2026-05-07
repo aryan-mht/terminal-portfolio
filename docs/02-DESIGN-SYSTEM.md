@@ -27,8 +27,12 @@ Defined in `src/app/globals.css`. **Never hardcode hex values — always use the
 
 ```css
 :root {
-  --font-mono: 'JetBrains Mono', monospace;   /* used everywhere */
-  --font-pixel: 'Press Start 2P', monospace;  /* hero "ARYAN" name only */
+  --font-mono: ui-monospace, 'Cascadia Code', 'Source Code Pro',
+               Menlo, Consolas, 'Liberation Mono', Monaco,
+               'DejaVu Sans Mono', monospace;                        /* terminal default */
+  --font-retro: var(--font-vt323), 'Courier New', monospace;        /* retro CRT accent */
+  --font-ascii: 'Courier New', 'Lucida Console', monospace;         /* box-drawing ASCII art */
+  --font-pixel: var(--font-press-start-2p), monospace;              /* reserved, not in active use */
 
   --text-xs: 0.7rem;      /* status bar text, muted labels */
   --text-sm: 0.8rem;      /* terminal body text */
@@ -37,7 +41,13 @@ Defined in `src/app/globals.css`. **Never hardcode hex values — always use the
 }
 ```
 
-Fonts loaded via `next/font/google` in `layout.tsx`. Applied as CSS variables. Never import via `@import` or `<link>` in `<head>`.
+**Font usage:**
+- `--font-mono` (cross-platform system mono stack) — terminal input, output cards, navbar/status bar, command output. Picks the best native mono available: `ui-monospace` on modern OSes, then Cascadia/Source Code Pro/Menlo/Consolas/Liberation/Monaco/DejaVu in that order, with `monospace` as the final fallback. The default for everything except hero accents.
+- `--font-retro` (VT323) — only the hero "Welcome to Aryan's Terminal Portfolio" line. CRT-style retro headline.
+- `--font-ascii` (Courier New) — only the ASCII-art name in the hero. Chosen because its box-drawing glyphs (`╗ ╔ ═ ║`) tile cleanly at `line-height: 1`.
+- `--font-pixel` (Press Start 2P) — loaded but currently unused; reserved for future pixel-art elements.
+
+VT323 and Press Start 2P are loaded via `next/font/google` in `layout.tsx` and exposed as CSS variables. Menlo and Courier New are system fonts — no loading needed. Never use `@import` or `<link>` in `<head>`.
 
 ---
 
@@ -118,13 +128,11 @@ aryan@portfolio:~$
 
 **Accessibility rule:** Every Framer Motion animation must check `prefers-reduced-motion`. If true, skip the animation (use `initial={false}` or set duration to 0).
 
-### Boot Sequence (per line)
-```js
-initial: { opacity: 0, x: -10 }
-animate: { opacity: 1, x: 0 }
-transition: { duration: 0.3, ease: 'easeOut' }
-// Stagger: 400ms delay between each line
-```
+### Hero Welcome Block (static)
+The hero shows three static lines below the ASCII name. No animation, no boot-sequence stagger. Layout:
+- "Welcome to Aryan's Terminal Portfolio" — `--font-retro` (VT323), white, ~2.25rem
+- "Type '?' or 'help' to view a list of available commands." — `--font-mono` (system mono stack), `#d1d5db`, 0.95rem
+- "visitor@aryan.me:~$" — `--font-mono` (system mono stack), `#d1d5db`, 0.95rem
 
 ### Command Output Cards (on mount)
 ```js
@@ -140,11 +148,13 @@ animate: { opacity: 1, y: 0 }
 transition: { duration: 0.15, ease: 'easeOut' }
 ```
 
-### Hero Name Glitch
-- CSS-only animation, not Framer Motion
-- Subtle: `text-shadow` shifts by 2–3px on X axis, slight opacity flicker
-- Duration: 3s, runs once on load then idles at 10% probability per 5s
-- Color: `var(--color-text)` with `var(--color-accent)` text-shadow
+### Hero ASCII Name (static)
+- Plain `<div>` with `white-space: pre`, no `<pre>` tag (avoids browser scrollbar)
+- Font: `--font-ascii` (Courier New stack)
+- White (`#ffffff`), `font-weight: 700`, `line-height: 1`, `letter-spacing: 0`
+- Responsive size: `clamp(0.7rem, 1.7vw, 1.25rem)`
+- No animation, no glitch shadow, no color
+- The ASCII art is a literal block of Unicode box-drawing characters spelling "ARYAN"
 
 ### Cursor Blink
 ```css

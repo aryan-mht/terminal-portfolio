@@ -10,7 +10,7 @@ export function AsciiName() {
     <div
       aria-label="Aryan"
       style={{
-        fontFamily: "'Courier New', 'Lucida Console', monospace",
+        fontFamily: 'var(--font-ascii)',
         fontSize: 'clamp(0.7rem, 1.7vw, 1.25rem)',
         lineHeight: 1,
         color: '#ffffff',

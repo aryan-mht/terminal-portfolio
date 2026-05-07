@@ -26,7 +26,7 @@ export function BootSequence() {
       </div>
       <div
         style={{
-          fontFamily: "Menlo, Monaco, Consolas, 'Courier New', monospace",
+          fontFamily: 'var(--font-mono)',
           fontSize: '0.95rem',
           color: '#d1d5db',
           marginTop: '0.75rem',
@@ -37,7 +37,7 @@ export function BootSequence() {
       </div>
       <div
         style={{
-          fontFamily: "Menlo, Monaco, Consolas, 'Courier New', monospace",
+          fontFamily: 'var(--font-mono)',
           fontSize: '0.95rem',
           color: '#d1d5db',
           marginTop: '0.5rem',

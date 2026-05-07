@@ -101,52 +101,54 @@ Build src/components/layout/status-bar.tsx.
 ### Prompt 3.1 — ASCII Name
 ```
 Build src/components/hero/ascii-name.tsx.
-- "ARYAN" in Press Start 2P font
-- Large size (text-4xl or larger), centered or left-aligned
-- Color: var(--color-text) with var(--color-accent) text-shadow
-- Subtle CSS glitch animation: text-shadow shifts ±2px on X, slight opacity flicker
-  - Duration: 3s total, runs once on load, then pauses
+- Use a <div> (NOT a <pre>) with white-space: pre to preserve the box-drawing characters.
+- Render the multi-line Unicode ASCII art that spells "ARYAN" using box-drawing glyphs (█ ╗ ╔ ═ ║ ╚ ╝).
+- Font: var(--font-ascii) — Courier New / Lucida Console system stack
+- Color: white, font-weight 700, line-height 1, letter-spacing 0
+- Responsive size: clamp(0.7rem, 1.7vw, 1.25rem)
+- No animation, no glitch effect, no text-shadow, no color
 - aria-label="Aryan" on the element
+- overflow: hidden to prevent any phantom scrollbars
 ```
-**TEST:** "ARYAN" renders in pixel font. Glitch animation plays on load.
-**COMMIT:** `feat: phase 3.1 — ASCII name with glitch animation`
+**TEST:** "ARYAN" renders cleanly in box-drawing chars, no overlap, no scrollbar.
+**COMMIT:** `feat: phase 3.1 — ASCII name`
 
 ---
 
-### Prompt 3.2 — Boot Sequence
+### Prompt 3.2 — Welcome Block (static)
 ```
 Build src/components/hero/boot-sequence.tsx.
-Accept a prop: onComplete: () => void — called after all lines finish.
+No props, no animation, no Framer Motion. Three static lines:
 
-Lines to render with Framer Motion stagger (400ms between each):
-1. "Initializing aryan@portfolio..."        [immediate]
-2. "Loading modules..............  done"    [+400ms]
-3. "Establishing connection......  done"    [+800ms]
-4. "Mounting filesystem..........  done"    [+1200ms]
-5. (blank line)                             [+1600ms]
-6. "Welcome to Aryan's Terminal Portfolio"  [+1800ms]
-7. "Type 'help' or '?' to see commands."   [+2200ms]
+1. "Welcome to Aryan's Terminal Portfolio"
+   - Font: VT323 (apply via vt323.className from next/font/google directly, NOT through a CSS variable indirection)
+   - Color: white, font-size: 2.25rem
+2. "Type '?' or 'help' to view a list of available commands."
+   - Font: var(--font-mono) (Menlo system stack)
+   - Color: #d1d5db, font-size: 0.95rem, marginTop: 0.75rem
+3. "visitor@aryan.me:~$"
+   - Font: var(--font-mono)
+   - Color: #d1d5db, font-size: 0.95rem, marginTop: 0.5rem
 
-Each line: Framer Motion — opacity 0→1, x: -10→0, duration 0.3s, ease easeOut.
-After line 7: 500ms pause, then call onComplete().
-Check prefers-reduced-motion — if true, render all lines instantly and call onComplete() immediately.
+Wrap all three in a div with var(--font-retro) so the welcome line inherits VT323.
+The whole block has marginTop: 2rem.
 ```
-**TEST:** Lines appear one by one. onComplete fires after ~2.7s.
-**COMMIT:** `feat: phase 3.2 — boot sequence with stagger animation`
+**TEST:** All three lines render statically on page load with the correct fonts.
+**COMMIT:** `feat: phase 3.2 — hero welcome block`
 
 ---
 
 ### Prompt 3.3 — Hero Component
 ```
 Build src/components/hero/hero.tsx.
-- Circular "A" logo: CSS circle with var(--color-accent) border, "A" text inside in var(--color-accent)
-- AsciiName component below logo
-- Subtitle: "Software Engineer · USask · Open to new grad roles" in var(--color-muted)
-- BootSequence below subtitle
-- Entire hero renders once on page load — no re-renders
-- Wire into src/app/page.tsx
+- No logo, no circular "A" — strip it, the design is text-only now.
+- AsciiName at the top.
+- BootSequence directly below.
+- Entire hero renders once on page load — no re-renders, no state.
+- Padding: var(--terminal-padding), paddingTop: 2.5rem, paddingBottom: 2rem.
+- Wire into src/app/page.tsx.
 ```
-**TEST:** Hero shows on page load. Circular A, ARYAN in pixel font, subtitle, boot sequence all visible.
+**TEST:** Hero shows on page load — ASCII ARYAN in white, then welcome block underneath.
 **COMMIT:** `feat: phase 3.3 — hero section assembled`
 
 ---
