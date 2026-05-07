@@ -18,6 +18,7 @@
 
   --font-mono: var(--font-jetbrains-mono), monospace;
   --font-pixel: var(--font-press-start-2p), monospace;
+  --font-retro: var(--font-vt323), 'Courier New', monospace;
 
   --text-xs: 0.7rem;
   --text-sm: 0.8rem;

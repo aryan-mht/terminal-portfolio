@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Press_Start_2P } from "next/font/google";
+import { JetBrains_Mono, Press_Start_2P, VT323 } from "next/font/google";
 import { Navbar } from "@/components/layout/navbar";
 import { StatusBar } from "@/components/layout/status-bar";
 import "./globals.css";
@@ -17,6 +17,13 @@ const pressStart2P = Press_Start_2P({
   display: "swap",
 });
 
+const vt323 = VT323({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-vt323",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Aryan Mehta — Software Engineer",
   description:
@@ -30,7 +37,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${jetbrainsMono.variable} ${pressStart2P.variable}`}>
+      <body
+        className={`${jetbrainsMono.variable} ${pressStart2P.variable} ${vt323.variable}`}
+      >
         <Navbar />
         {children}
         <StatusBar />
