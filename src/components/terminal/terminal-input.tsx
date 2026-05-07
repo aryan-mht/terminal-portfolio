@@ -96,7 +96,7 @@ export function TerminalInput({ onSubmit }: TerminalInputProps) {
   };
 
   return (
-    <div style={{ position: "relative" }}>
+    <div>
       <Autocomplete
         suggestions={autocompleteOpen ? suggestions : []}
         selectedIndex={selectedIndex}
