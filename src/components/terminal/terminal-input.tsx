@@ -58,7 +58,7 @@ export function TerminalInput({ onSubmit }: TerminalInputProps) {
 
     if (e.key === "Tab") {
       e.preventDefault();
-      if (suggestions.length > 0 && autocompleteOpen) {
+      if (suggestions.length === 1 && autocompleteOpen) {
         setValue(selectCurrent());
         resetAutocomplete();
       }
