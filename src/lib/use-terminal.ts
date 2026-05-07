@@ -46,6 +46,12 @@ export function useTerminal(): UseTerminalReturn {
       return;
     }
 
+    if (input === "resume") {
+      if (typeof window !== "undefined") {
+        window.open("/Resume.pdf", "_blank", "noopener,noreferrer");
+      }
+    }
+
     const match = findCommand(input);
     let output: ReactNode;
     if (!match) {

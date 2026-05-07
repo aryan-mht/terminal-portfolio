@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Press_Start_2P, VT323 } from "next/font/google";
 import { Navbar } from "@/components/layout/navbar";
 import { StatusBar } from "@/components/layout/status-bar";
+import { TerminalProvider } from "@/lib/terminal-context";
 import "./globals.css";
 
 const pressStart2P = Press_Start_2P({
@@ -32,9 +33,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${pressStart2P.variable} ${vt323.variable}`}>
-        <Navbar />
-        {children}
-        <StatusBar />
+        <TerminalProvider>
+          <Navbar />
+          {children}
+          <StatusBar />
+        </TerminalProvider>
       </body>
     </html>
   );
