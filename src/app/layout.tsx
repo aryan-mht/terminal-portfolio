@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Press_Start_2P, VT323 } from "next/font/google";
 import { Navbar } from "@/components/layout/navbar";
 import { StatusBar } from "@/components/layout/status-bar";
+import { MotionProvider } from "@/lib/motion-provider";
 import { TerminalProvider } from "@/lib/terminal-context";
 import "./globals.css";
 
@@ -33,11 +34,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${pressStart2P.variable} ${vt323.variable}`}>
-        <TerminalProvider>
-          <Navbar />
-          {children}
-          <StatusBar />
-        </TerminalProvider>
+        <MotionProvider>
+          <TerminalProvider>
+            <Navbar />
+            {children}
+            <StatusBar />
+          </TerminalProvider>
+        </MotionProvider>
       </body>
     </html>
   );

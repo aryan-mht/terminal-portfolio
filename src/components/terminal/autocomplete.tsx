@@ -1,5 +1,6 @@
 'use client';
 
+import { AnimatePresence, motion } from "framer-motion";
 import type { AutocompleteSuggestion } from "@/lib/use-autocomplete";
 
 interface AutocompleteProps {
@@ -8,24 +9,29 @@ interface AutocompleteProps {
 }
 
 export function Autocomplete({ suggestions, onSelect }: AutocompleteProps) {
-  if (suggestions.length === 0) return null;
-
   const usageColumnWidth = Math.max(
     20,
     ...suggestions.map((s) => s.usage.length)
   );
 
   return (
-    <div
-      style={{
-        fontFamily: "var(--font-mono)",
-        fontSize: "0.95rem",
-        marginTop: "0.75rem",
-        lineHeight: 1.6,
-        color: "var(--color-muted)",
-        fontStyle: "italic",
-      }}
-    >
+    <AnimatePresence>
+      {suggestions.length > 0 && (
+        <motion.div
+          key="autocomplete"
+          initial={{ opacity: 0, y: 4 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 4 }}
+          transition={{ duration: 0.15 }}
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "0.95rem",
+            marginTop: "0.75rem",
+            lineHeight: 1.6,
+            color: "var(--color-muted)",
+            fontStyle: "italic",
+          }}
+        >
       <div style={{ marginBottom: "0.5rem" }}>Suggestions:</div>
       {suggestions.map((s) => (
         <div
@@ -53,6 +59,8 @@ export function Autocomplete({ suggestions, onSelect }: AutocompleteProps) {
           <span>- {s.description}</span>
         </div>
       ))}
-    </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
