@@ -54,7 +54,8 @@ export function OutputContact() {
           color: "var(--color-success)",
         }}
       >
-        ● Available for new grad SWE opportunities
+        <span aria-hidden="true">● </span>
+        Available for new grad SWE opportunities
       </div>
     </motion.div>
   );
