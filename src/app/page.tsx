@@ -1,16 +1,5 @@
-import { Hero } from '@/components/hero/hero';
+import { Terminal } from "@/components/terminal/terminal";
 
 export default function Home() {
-  return (
-    <main
-      style={{
-        height: 'calc(100vh - var(--navbar-height) - var(--status-bar-height))',
-        marginTop: 'var(--navbar-height)',
-        background: 'var(--color-bg)',
-        overflowY: 'auto',
-      }}
-    >
-      <Hero />
-    </main>
-  );
+  return <Terminal />;
 }
