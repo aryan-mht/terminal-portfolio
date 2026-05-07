@@ -26,20 +26,22 @@ export function BootSequence() {
       </div>
       <div
         style={{
-          fontSize: '1.65rem',
+          fontFamily: "Menlo, Monaco, Consolas, 'Courier New', monospace",
+          fontSize: '0.95rem',
           color: '#d1d5db',
           marginTop: '0.75rem',
-          letterSpacing: '0.02em',
+          letterSpacing: 0,
         }}
       >
         Type &apos;?&apos; or &apos;help&apos; to view a list of available commands.
       </div>
       <div
         style={{
-          fontSize: '1.65rem',
+          fontFamily: "Menlo, Monaco, Consolas, 'Courier New', monospace",
+          fontSize: '0.95rem',
           color: '#d1d5db',
           marginTop: '0.5rem',
-          letterSpacing: '0.02em',
+          letterSpacing: 0,
         }}
       >
         visitor@aryan.me:~$
