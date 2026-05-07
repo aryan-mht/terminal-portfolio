@@ -3,6 +3,7 @@ import { createElement } from "react";
 import { OutputAbout } from "@/components/commands/output-about";
 import { OutputAscii } from "@/components/commands/output-ascii";
 import { OutputContact } from "@/components/commands/output-contact";
+import { OutputDate } from "@/components/commands/output-date";
 import { OutputExperience } from "@/components/commands/output-experience";
 import { OutputHash } from "@/components/commands/output-hash";
 import { OutputHelp } from "@/components/commands/output-help";
@@ -11,8 +12,10 @@ import { OutputIp } from "@/components/commands/output-ip";
 import { OutputProjects } from "@/components/commands/output-projects";
 import { OutputRps } from "@/components/commands/output-rps";
 import { OutputSkills } from "@/components/commands/output-skills";
+import { OutputStock } from "@/components/commands/output-stock";
 import { OutputSudoHire } from "@/components/commands/output-sudo-hire";
 import { OutputTheme } from "@/components/commands/output-theme";
+import { OutputTimer } from "@/components/commands/output-timer";
 import { OutputUptime } from "@/components/commands/output-uptime";
 import { OutputWeather } from "@/components/commands/output-weather";
 import { OutputWhoami } from "@/components/commands/output-whoami";
@@ -56,6 +59,48 @@ function asciiHandler(args: string[]): ReactNode {
   const text = args.join(" ").trim();
   if (!text) return muted("Usage: ascii [text]");
   return createElement(OutputAscii, { text });
+}
+
+function unameHandler(args: string[]): ReactNode {
+  if (args[0] === "-a") {
+    return createElement(
+      "span",
+      { style: { color: "var(--color-text)" } },
+      "Linux aryan 6.x portfolio-terminal #1 Next.js"
+    );
+  }
+  return createElement(
+    "span",
+    { style: { color: "var(--color-text)" } },
+    "Linux"
+  );
+}
+
+function echoHandler(args: string[]): ReactNode {
+  return createElement(
+    "span",
+    { style: { color: "var(--color-text)" } },
+    args.join(" ")
+  );
+}
+
+function timerHandler(args: string[]): ReactNode {
+  const arg = args[0];
+  if (!arg) return muted("Usage: timer <seconds>");
+  const seconds = Number.parseInt(arg, 10);
+  if (!Number.isFinite(seconds) || seconds <= 0 || seconds > 3600) {
+    return muted("Usage: timer <seconds>  (1–3600)");
+  }
+  return createElement(OutputTimer, { seconds });
+}
+
+function stockHandler(args: string[]): ReactNode {
+  const symbol = args[0]?.trim();
+  if (!symbol) return muted("Usage: stock <symbol>");
+  if (!/^[A-Za-z0-9.\-^]{1,10}$/.test(symbol)) {
+    return muted("Invalid symbol.");
+  }
+  return createElement(OutputStock, { symbol: symbol.toUpperCase() });
 }
 
 function themeHandler(args: string[]): ReactNode {
@@ -217,6 +262,41 @@ export const commands: Command[] = [
     usage: "man <command>",
     category: "utility",
     handler: (args) => manHandler(args),
+  },
+  {
+    name: "uname",
+    description: "Print system information",
+    usage: "uname [-a]",
+    category: "utility",
+    handler: unameHandler,
+  },
+  {
+    name: "date",
+    description: "Print the current date and time",
+    usage: "date",
+    category: "utility",
+    handler: () => createElement(OutputDate),
+  },
+  {
+    name: "echo",
+    description: "Print the given text",
+    usage: "echo <text>",
+    category: "utility",
+    handler: echoHandler,
+  },
+  {
+    name: "timer",
+    description: "Start a countdown timer",
+    usage: "timer <seconds>",
+    category: "utility",
+    handler: timerHandler,
+  },
+  {
+    name: "stock",
+    description: "Get stock price for a global ticker (e.g., AAPL, TSLA)",
+    usage: "stock <symbol>",
+    category: "utility",
+    handler: stockHandler,
   },
 ];
 

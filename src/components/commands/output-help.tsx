@@ -21,9 +21,14 @@ const NAVIGATION: HelpCommand[] = [
 
 const FUN: HelpCommand[] = [
   { name: "whoami", description: "Who am I?" },
+  { name: "uname [-a]", description: "Print system information" },
+  { name: "date", description: "Print the current date and time" },
+  { name: "echo <text>", description: "Print the given text" },
   { name: "hash [text]", description: "SHA-256 + MD5 of text" },
   { name: "ip", description: "Your IP + location" },
   { name: "weather", description: "Current weather" },
+  { name: "stock <symbol>", description: "Stock price for a ticker" },
+  { name: "timer <seconds>", description: "Start a countdown timer" },
   { name: "rps [move]", description: "Rock paper scissors" },
   { name: "ascii [text]", description: "ASCII block art" },
   { name: "theme [color]", description: "Switch accent color" },
