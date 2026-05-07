@@ -35,17 +35,6 @@ export function BootSequence() {
       >
         Type &apos;?&apos; or &apos;help&apos; to view a list of available commands.
       </div>
-      <div
-        style={{
-          fontFamily: 'var(--font-mono)',
-          fontSize: '0.95rem',
-          color: '#d1d5db',
-          marginTop: '0.5rem',
-          letterSpacing: 0,
-        }}
-      >
-        visitor@aryan.me:~$
-      </div>
     </div>
   );
 }

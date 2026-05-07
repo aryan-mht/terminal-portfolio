@@ -2,12 +2,12 @@
 
 import { useEffect, useRef } from "react";
 import { Hero } from "@/components/hero/hero";
-import { useTerminal } from "@/lib/use-terminal";
+import { useTerminalContext } from "@/lib/terminal-context";
 import { TerminalHistory } from "./terminal-history";
 import { TerminalInput } from "./terminal-input";
 
 export function Terminal() {
-  const { history, runCommand } = useTerminal();
+  const { history, runCommand } = useTerminalContext();
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

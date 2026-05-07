@@ -13,12 +13,12 @@ interface TerminalInputProps {
 export function TerminalInput({ onSubmit }: TerminalInputProps) {
   const [value, setValue] = useState("");
   const [autocompleteOpen, setAutocompleteOpen] = useState(true);
+  const [focused, setFocused] = useState(true);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { addToHistory, navigateUp, navigateDown, reset: resetHistory } = useCommandHistory();
   const autocomplete = useAutocomplete(autocompleteOpen ? value : "");
-  const { suggestions, selectedIndex, selectNext, selectPrev, selectCurrent, reset: resetAutocomplete } =
-    autocomplete;
+  const { suggestions, selectCurrent, reset: resetAutocomplete } = autocomplete;
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -74,22 +74,20 @@ export function TerminalInput({ onSubmit }: TerminalInputProps) {
 
     if (e.key === "ArrowUp") {
       e.preventDefault();
-      if (autocompleteOpen && suggestions.length > 0) {
-        selectPrev();
-      } else {
-        const prev = navigateUp();
-        if (prev !== null) setValue(prev);
+      const prev = navigateUp();
+      if (prev !== null) {
+        setValue(prev);
+        setAutocompleteOpen(false);
       }
       return;
     }
 
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      if (autocompleteOpen && suggestions.length > 0) {
-        selectNext();
-      } else {
-        const next = navigateDown();
-        if (next !== null) setValue(next);
+      const next = navigateDown();
+      if (next !== null) {
+        setValue(next);
+        setAutocompleteOpen(false);
       }
       return;
     }
@@ -101,9 +99,11 @@ export function TerminalInput({ onSubmit }: TerminalInputProps) {
         style={{
           display: "flex",
           alignItems: "center",
-          gap: "0.25rem",
+          gap: 0,
           fontFamily: "var(--font-mono)",
-          fontSize: "var(--text-base)",
+          fontSize: "0.95rem",
+          marginTop: "0.5rem",
+          color: "#d1d5db",
         }}
       >
         <Prompt />
@@ -116,27 +116,33 @@ export function TerminalInput({ onSubmit }: TerminalInputProps) {
             setAutocompleteOpen(true);
           }}
           onKeyDown={onKeyDown}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
           autoCapitalize="off"
           autoCorrect="off"
           autoComplete="off"
           spellCheck={false}
           aria-label="Terminal input"
           style={{
-            flex: 1,
+            width: `${value.length}ch`,
             background: "transparent",
             border: "none",
             outline: "none",
-            color: "var(--color-text)",
+            color: "#d1d5db",
             fontFamily: "inherit",
             fontSize: "inherit",
             padding: 0,
-            caretColor: "var(--color-accent)",
+            caretColor: "transparent",
           }}
         />
+        <span
+          aria-hidden="true"
+          className={focused ? "terminal-cursor" : "terminal-cursor idle"}
+        />
+        <span style={{ flex: 1 }} aria-hidden="true" />
       </label>
       <Autocomplete
         suggestions={autocompleteOpen ? suggestions : []}
-        selectedIndex={selectedIndex}
         onSelect={(name) => {
           setValue(name);
           resetAutocomplete();

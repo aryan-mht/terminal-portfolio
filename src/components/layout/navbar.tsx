@@ -1,5 +1,7 @@
 'use client';
 
+import { useTerminalContext } from '@/lib/terminal-context';
+
 const NAV_COMMANDS = [
   'help',
   'about',
@@ -12,6 +14,7 @@ const NAV_COMMANDS = [
 ] as const;
 
 export function Navbar() {
+  const { runCommand } = useTerminalContext();
   return (
     <nav
       className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4"
@@ -41,6 +44,7 @@ export function Navbar() {
           <button
             key={cmd}
             aria-label={`Run ${cmd} command`}
+            onClick={() => runCommand(cmd)}
             className="shrink-0 rounded px-4 py-1.5"
             style={{
               fontSize: 'var(--text-base)',

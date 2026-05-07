@@ -1,5 +1,11 @@
 import type { ReactNode } from "react";
 import { createElement } from "react";
+import { OutputAbout } from "@/components/commands/output-about";
+import { OutputContact } from "@/components/commands/output-contact";
+import { OutputExperience } from "@/components/commands/output-experience";
+import { OutputHelp } from "@/components/commands/output-help";
+import { OutputProjects } from "@/components/commands/output-projects";
+import { OutputSkills } from "@/components/commands/output-skills";
 
 export type CommandCategory = "navigation" | "fun" | "utility";
 
@@ -13,7 +19,7 @@ export interface Command {
 }
 
 const placeholder = (): ReactNode =>
-  createElement("span", null, "Command output coming in Phase 5");
+  createElement("span", null, "Command output coming in Phase 6");
 
 export const commands: Command[] = [
   {
@@ -22,7 +28,7 @@ export const commands: Command[] = [
     description: "Show this help menu",
     usage: "help",
     category: "navigation",
-    handler: placeholder,
+    handler: () => createElement(OutputHelp),
   },
   {
     name: "cd about",
@@ -30,7 +36,7 @@ export const commands: Command[] = [
     description: "About me & education",
     usage: "cd about",
     category: "navigation",
-    handler: placeholder,
+    handler: () => createElement(OutputAbout),
   },
   {
     name: "cd experience",
@@ -38,7 +44,7 @@ export const commands: Command[] = [
     description: "Work experience",
     usage: "cd experience",
     category: "navigation",
-    handler: placeholder,
+    handler: () => createElement(OutputExperience),
   },
   {
     name: "cd projects",
@@ -46,7 +52,7 @@ export const commands: Command[] = [
     description: "Projects",
     usage: "cd projects",
     category: "navigation",
-    handler: placeholder,
+    handler: () => createElement(OutputProjects),
   },
   {
     name: "cd skills",
@@ -54,7 +60,7 @@ export const commands: Command[] = [
     description: "Skills tree",
     usage: "cd skills",
     category: "navigation",
-    handler: placeholder,
+    handler: () => createElement(OutputSkills),
   },
   {
     name: "cd contact",
@@ -62,14 +68,19 @@ export const commands: Command[] = [
     description: "Contact & links",
     usage: "cd contact",
     category: "navigation",
-    handler: placeholder,
+    handler: () => createElement(OutputContact),
   },
   {
     name: "resume",
     description: "Open resume PDF in a new tab",
     usage: "resume",
     category: "navigation",
-    handler: placeholder,
+    handler: () =>
+      createElement(
+        "span",
+        { style: { color: "var(--color-muted)" } },
+        "Opening resume..."
+      ),
   },
   {
     name: "clear",

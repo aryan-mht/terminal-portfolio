@@ -67,3 +67,64 @@ body {
     opacity: 0.4;
   }
 }
+
+@keyframes tag-glitch {
+  0%, 100% { transform: translate(0, 0); }
+  20%      { transform: translate(-1px, 0); }
+  40%      { transform: translate(1px, 0); }
+  60%      { transform: translate(0, -1px); }
+  80%      { transform: translate(0, 1px); }
+}
+
+.terminal-cursor {
+  display: inline-block;
+  width: 0.6em;
+  height: 1em;
+  background: #d1d5db;
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+}
+
+.terminal-cursor.idle {
+  animation: none;
+  opacity: 0.6;
+}
+
+.tech-tag {
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-accent);
+  background: transparent;
+  border: 1px solid var(--color-accent);
+  border-radius: 4px;
+  padding: 0.3rem 0.7rem;
+  margin-right: 0.45rem;
+  margin-bottom: 0.45rem;
+  cursor: default;
+  overflow: hidden;
+  transition: color 0.15s ease, text-shadow 0.15s ease;
+  z-index: 0;
+}
+
+.tech-tag::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.25s ease;
+  z-index: -1;
+}
+
+.tech-tag:hover::before {
+  transform: scaleX(1);
+}
+
+.tech-tag:hover {
+  color: var(--color-bg);
+  text-shadow: 0 0 6px rgba(0, 255, 159, 0.6);
+  animation: tag-glitch 0.3s steps(2, end);
+}
