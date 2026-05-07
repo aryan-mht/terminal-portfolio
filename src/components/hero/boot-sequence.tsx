@@ -2,34 +2,34 @@ export function BootSequence() {
   return (
     <div
       style={{
-        fontFamily: 'var(--font-mono)',
-        marginTop: '1.5rem',
-        lineHeight: 2,
+        fontFamily: 'var(--font-mono), monospace',
+        marginTop: '2rem',
+        lineHeight: 1.8,
       }}
     >
       <div
         style={{
-          fontSize: 'var(--text-base)',
+          fontSize: '1.25rem',
           fontWeight: 700,
           color: '#ffffff',
-          letterSpacing: '0.03em',
         }}
       >
         Welcome to Aryan&apos;s Terminal Portfolio
       </div>
       <div
         style={{
-          fontSize: 'var(--text-sm)',
-          color: 'var(--color-muted)',
+          fontSize: '1rem',
+          color: '#d1d5db',
+          marginTop: '0.5rem',
         }}
       >
         Type &apos;?&apos; or &apos;help&apos; to view a list of available commands.
       </div>
       <div
         style={{
-          fontSize: 'var(--text-sm)',
-          color: 'var(--color-muted)',
-          marginTop: '0.25rem',
+          fontSize: '1rem',
+          color: '#d1d5db',
+          marginTop: '0.5rem',
         }}
       >
         visitor@aryan.me:~$

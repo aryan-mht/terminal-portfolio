@@ -1,30 +1,27 @@
-const ASCII_ART = `
- █████╗  ██████╗  ██╗   ██╗ █████╗  ███╗   ██╗
+const ASCII_ART = ` █████╗  ██████╗  ██╗   ██╗ █████╗  ███╗   ██╗
 ██╔══██╗ ██╔══██╗ ╚██╗ ██╔╝██╔══██╗ ████╗  ██║
 ███████║ ██████╔╝  ╚████╔╝ ███████║ ██╔██╗ ██║
 ██╔══██║ ██╔══██╗   ╚██╔╝  ██╔══██║ ██║╚██╗██║
 ██║  ██║ ██║  ██║    ██║   ██║  ██║ ██║ ╚████║
-╚═╝  ╚═╝ ╚═╝  ╚═╝    ╚═╝   ╚═╝  ╚═╝ ╚═╝  ╚═══╝`.trimStart();
+╚═╝  ╚═╝ ╚═╝  ╚═╝    ╚═╝   ╚═╝  ╚═╝ ╚═╝  ╚═══╝`;
 
 export function AsciiName() {
   return (
-    <div style={{ overflowX: 'auto' }}>
-      <pre
-        aria-label="Aryan"
-        style={{
-          fontFamily: 'var(--font-mono)',
-          fontSize: 'clamp(0.5rem, 1.4vw, 1rem)',
-          lineHeight: 1.2,
-          color: '#ffffff',
-          textShadow: '-3px 0 #60a5fa, 3px 0 var(--color-accent)',
-          margin: 0,
-          fontWeight: 700,
-          whiteSpace: 'pre',
-          display: 'inline-block',
-        }}
-      >
-        {ASCII_ART}
-      </pre>
-    </div>
+    <pre
+      aria-label="Aryan"
+      style={{
+        fontFamily: 'var(--font-mono), monospace',
+        fontSize: 'clamp(0.55rem, 1.6vw, 1.1rem)',
+        lineHeight: 1,
+        color: '#ffffff',
+        margin: 0,
+        padding: 0,
+        whiteSpace: 'pre',
+        overflow: 'visible',
+        fontWeight: 400,
+      }}
+    >
+      {ASCII_ART}
+    </pre>
   );
 }
