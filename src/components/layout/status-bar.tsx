@@ -62,7 +62,7 @@ export function StatusBar() {
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-between px-4"
+      className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-between gap-3 px-4"
       style={{
         height: "var(--status-bar-height)",
         background: "var(--color-surface)",
@@ -70,11 +70,17 @@ export function StatusBar() {
         color: "var(--color-muted)",
         fontSize: "var(--text-sm)",
         fontFamily: "var(--font-mono)",
+        whiteSpace: "nowrap",
       }}
     >
-      <span>{weatherLabel}</span>
-      <span>aryan.dev</span>
-      <span suppressHydrationWarning>{clock || " "}</span>
+      <span style={{ overflow: "hidden", textOverflow: "ellipsis" }}>{weatherLabel}</span>
+      <span className="hidden sm:inline">aryan.dev</span>
+      <span
+        suppressHydrationWarning
+        style={{ overflow: "hidden", textOverflow: "ellipsis" }}
+      >
+        {clock || " "}
+      </span>
     </div>
   );
 }

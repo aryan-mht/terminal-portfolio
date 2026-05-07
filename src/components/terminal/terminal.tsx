@@ -18,11 +18,12 @@ export function Terminal() {
     <div
       style={{
         height:
-          "calc(100vh - var(--navbar-height) - var(--status-bar-height))",
+          "calc(100dvh - var(--navbar-height) - var(--status-bar-height))",
         marginTop: "var(--navbar-height)",
         background: "var(--color-bg)",
         overflowY: "auto",
         padding: "var(--terminal-padding)",
+        paddingBottom: "calc(var(--terminal-padding) + env(safe-area-inset-bottom, 0px))",
       }}
     >
       <Hero />
