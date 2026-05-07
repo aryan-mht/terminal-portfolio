@@ -185,9 +185,61 @@ export const commands: Command[] = [
     description: "Show usage for a command",
     usage: "man [command]",
     category: "utility",
-    handler: placeholder,
+    handler: (args) => manHandler(args),
   },
 ];
+
+function manHandler(args: string[]): ReactNode {
+  const topic = args.join(" ").trim().toLowerCase();
+  if (!topic) {
+    return createElement(
+      "span",
+      { style: { color: "var(--color-muted)" } },
+      "What manual page do you want? Try: man <command>"
+    );
+  }
+  const target =
+    commands.find((c) => getCommandTopic(c).toLowerCase() === topic) ??
+    commandLookup.get(topic);
+  if (!target) {
+    return createElement(
+      "span",
+      { style: { color: "var(--color-error)" } },
+      `No manual entry for ${topic}`
+    );
+  }
+  const lines: ReactNode[] = [
+    createElement(
+      "div",
+      { key: "name", style: { color: "var(--color-text)" } },
+      `NAME    ${getCommandTopic(target)}`
+    ),
+    createElement(
+      "div",
+      { key: "usage", style: { color: "var(--color-muted)", marginTop: "0.25rem" } },
+      `USAGE   ${target.usage}`
+    ),
+    createElement(
+      "div",
+      { key: "desc", style: { color: "var(--color-muted)", marginTop: "0.25rem" } },
+      `DESC    ${target.description}`
+    ),
+  ];
+  if (target.aliases?.length) {
+    lines.push(
+      createElement(
+        "div",
+        { key: "aliases", style: { color: "var(--color-muted)", marginTop: "0.25rem" } },
+        `ALIASES ${target.aliases.join(", ")}`
+      )
+    );
+  }
+  return createElement(
+    "div",
+    { style: { fontFamily: "var(--font-mono)" } },
+    ...lines
+  );
+}
 
 const commandLookup = new Map<string, Command>();
 for (const cmd of commands) {
@@ -214,6 +266,40 @@ export function findCommand(input: string): { command: Command; args: string[] }
   }
 
   return null;
+}
+
+export function getCommandTopic(cmd: Command): string {
+  if (!cmd.name.includes(" ")) return cmd.name;
+  return cmd.aliases?.find((a) => !a.includes(" ")) ?? cmd.name;
+}
+
+export interface ManTopic {
+  topic: string;
+  usage: string;
+  description: string;
+}
+
+export function getManTopics(query: string, limit = 10): ManTopic[] {
+  const q = query.trim().toLowerCase();
+  const seen = new Set<string>();
+  const results: ManTopic[] = [];
+  for (const cmd of commands) {
+    if (cmd.name === "man") continue;
+    const topic = getCommandTopic(cmd);
+    if (seen.has(topic)) continue;
+    if (q && !topic.toLowerCase().startsWith(q)) continue;
+    seen.add(topic);
+    const argTail = cmd.usage.startsWith(cmd.name)
+      ? cmd.usage.slice(cmd.name.length)
+      : "";
+    results.push({
+      topic,
+      usage: `${topic}${argTail}`,
+      description: `Show manual for ${topic}`,
+    });
+    if (results.length >= limit) break;
+  }
+  return results;
 }
 
 export function getAutocompleteSuggestions(input: string, limit = 6): Command[] {
