@@ -5,6 +5,7 @@ import { type Command, getAutocompleteSuggestions } from "./commands";
 
 export interface AutocompleteSuggestion {
   name: string;
+  usage: string;
   description: string;
 }
 
@@ -23,7 +24,7 @@ export function useAutocomplete(input: string): UseAutocompleteReturn {
   const matches: Command[] = useMemo(() => getAutocompleteSuggestions(input), [input]);
 
   const suggestions: AutocompleteSuggestion[] = useMemo(
-    () => matches.map((m) => ({ name: m.name, description: m.description })),
+    () => matches.map((m) => ({ name: m.name, usage: m.usage, description: m.description })),
     [matches]
   );
 

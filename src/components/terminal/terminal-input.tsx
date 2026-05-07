@@ -17,8 +17,7 @@ export function TerminalInput({ onSubmit }: TerminalInputProps) {
 
   const { addToHistory, navigateUp, navigateDown, reset: resetHistory } = useCommandHistory();
   const autocomplete = useAutocomplete(autocompleteOpen ? value : "");
-  const { suggestions, selectedIndex, selectNext, selectPrev, selectCurrent, reset: resetAutocomplete } =
-    autocomplete;
+  const { suggestions, selectedIndex, selectCurrent, reset: resetAutocomplete } = autocomplete;
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -74,22 +73,20 @@ export function TerminalInput({ onSubmit }: TerminalInputProps) {
 
     if (e.key === "ArrowUp") {
       e.preventDefault();
-      if (autocompleteOpen && suggestions.length > 0) {
-        selectPrev();
-      } else {
-        const prev = navigateUp();
-        if (prev !== null) setValue(prev);
+      const prev = navigateUp();
+      if (prev !== null) {
+        setValue(prev);
+        setAutocompleteOpen(false);
       }
       return;
     }
 
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      if (autocompleteOpen && suggestions.length > 0) {
-        selectNext();
-      } else {
-        const next = navigateDown();
-        if (next !== null) setValue(next);
+      const next = navigateDown();
+      if (next !== null) {
+        setValue(next);
+        setAutocompleteOpen(false);
       }
       return;
     }

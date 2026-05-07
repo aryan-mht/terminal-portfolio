@@ -11,9 +11,9 @@ interface AutocompleteProps {
 export function Autocomplete({ suggestions, selectedIndex, onSelect }: AutocompleteProps) {
   if (suggestions.length === 0) return null;
 
-  const nameColumnWidth = Math.max(
-    14,
-    ...suggestions.map((s) => s.name.length)
+  const usageColumnWidth = Math.max(
+    20,
+    ...suggestions.map((s) => s.usage.length)
   );
 
   return (
@@ -21,14 +21,12 @@ export function Autocomplete({ suggestions, selectedIndex, onSelect }: Autocompl
       style={{
         fontFamily: "var(--font-mono)",
         fontSize: "var(--text-base)",
-        fontStyle: "italic",
         marginTop: "0.75rem",
         lineHeight: 1.5,
+        color: "var(--color-muted)",
       }}
     >
-      <div style={{ color: "var(--color-muted)", marginBottom: "0.25rem" }}>
-        Suggestions:
-      </div>
+      <div style={{ marginBottom: "0.25rem" }}>Suggestions:</div>
       {suggestions.map((s, i) => {
         const selected = i === selectedIndex;
         return (
@@ -42,21 +40,19 @@ export function Autocomplete({ suggestions, selectedIndex, onSelect }: Autocompl
             }}
             style={{
               cursor: "pointer",
-              color: selected ? "#e2e8f0" : "var(--color-muted)",
+              color: selected ? "var(--color-text)" : "var(--color-muted)",
               whiteSpace: "pre",
             }}
           >
             <span
               style={{
                 display: "inline-block",
-                minWidth: `${nameColumnWidth + 2}ch`,
+                minWidth: `${usageColumnWidth + 2}ch`,
               }}
             >
-              {s.name}
+              {s.usage}
             </span>
-            <span style={{ color: "var(--color-muted)" }}>
-              - {s.description}
-            </span>
+            <span>- {s.description}</span>
           </div>
         );
       })}
