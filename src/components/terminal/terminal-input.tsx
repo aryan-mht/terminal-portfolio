@@ -17,7 +17,7 @@ export function TerminalInput({ onSubmit }: TerminalInputProps) {
 
   const { addToHistory, navigateUp, navigateDown, reset: resetHistory } = useCommandHistory();
   const autocomplete = useAutocomplete(autocompleteOpen ? value : "");
-  const { suggestions, selectedIndex, selectCurrent, reset: resetAutocomplete } = autocomplete;
+  const { suggestions, selectCurrent, reset: resetAutocomplete } = autocomplete;
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -100,7 +100,9 @@ export function TerminalInput({ onSubmit }: TerminalInputProps) {
           alignItems: "center",
           gap: "0.25rem",
           fontFamily: "var(--font-mono)",
-          fontSize: "var(--text-base)",
+          fontSize: "0.95rem",
+          marginTop: "0.5rem",
+          color: "#d1d5db",
         }}
       >
         <Prompt />
@@ -123,7 +125,7 @@ export function TerminalInput({ onSubmit }: TerminalInputProps) {
             background: "transparent",
             border: "none",
             outline: "none",
-            color: "var(--color-text)",
+            color: "#d1d5db",
             fontFamily: "inherit",
             fontSize: "inherit",
             padding: 0,
@@ -133,7 +135,6 @@ export function TerminalInput({ onSubmit }: TerminalInputProps) {
       </label>
       <Autocomplete
         suggestions={autocompleteOpen ? suggestions : []}
-        selectedIndex={selectedIndex}
         onSelect={(name) => {
           setValue(name);
           resetAutocomplete();

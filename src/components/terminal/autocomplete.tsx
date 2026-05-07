@@ -4,11 +4,10 @@ import type { AutocompleteSuggestion } from "@/lib/use-autocomplete";
 
 interface AutocompleteProps {
   suggestions: AutocompleteSuggestion[];
-  selectedIndex: number;
   onSelect: (name: string) => void;
 }
 
-export function Autocomplete({ suggestions, selectedIndex, onSelect }: AutocompleteProps) {
+export function Autocomplete({ suggestions, onSelect }: AutocompleteProps) {
   if (suggestions.length === 0) return null;
 
   const usageColumnWidth = Math.max(
@@ -20,42 +19,40 @@ export function Autocomplete({ suggestions, selectedIndex, onSelect }: Autocompl
     <div
       style={{
         fontFamily: "var(--font-mono)",
-        fontSize: "var(--text-base)",
+        fontSize: "0.95rem",
         marginTop: "0.75rem",
-        lineHeight: 1.5,
+        lineHeight: 1.6,
         color: "var(--color-muted)",
+        fontStyle: "italic",
       }}
     >
-      <div style={{ marginBottom: "0.25rem" }}>Suggestions:</div>
-      {suggestions.map((s, i) => {
-        const selected = i === selectedIndex;
-        return (
-          <div
-            key={s.name}
-            role="button"
-            tabIndex={-1}
-            onMouseDown={(e) => {
-              e.preventDefault();
-              onSelect(s.name);
-            }}
+      <div style={{ marginBottom: "0.5rem" }}>Suggestions:</div>
+      {suggestions.map((s) => (
+        <div
+          key={s.name}
+          role="button"
+          tabIndex={-1}
+          onMouseDown={(e) => {
+            e.preventDefault();
+            onSelect(s.name);
+          }}
+          style={{
+            cursor: "pointer",
+            color: "var(--color-muted)",
+            whiteSpace: "pre",
+          }}
+        >
+          <span
             style={{
-              cursor: "pointer",
-              color: selected ? "var(--color-text)" : "var(--color-muted)",
-              whiteSpace: "pre",
+              display: "inline-block",
+              minWidth: `${usageColumnWidth + 2}ch`,
             }}
           >
-            <span
-              style={{
-                display: "inline-block",
-                minWidth: `${usageColumnWidth + 2}ch`,
-              }}
-            >
-              {s.usage}
-            </span>
-            <span>- {s.description}</span>
-          </div>
-        );
-      })}
+            {s.usage}
+          </span>
+          <span>- {s.description}</span>
+        </div>
+      ))}
     </div>
   );
 }
