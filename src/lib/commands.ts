@@ -1,11 +1,24 @@
 import type { ReactNode } from "react";
 import { createElement } from "react";
 import { OutputAbout } from "@/components/commands/output-about";
+import { OutputAscii } from "@/components/commands/output-ascii";
 import { OutputContact } from "@/components/commands/output-contact";
 import { OutputExperience } from "@/components/commands/output-experience";
+import { OutputHash } from "@/components/commands/output-hash";
 import { OutputHelp } from "@/components/commands/output-help";
+import { OutputHistory } from "@/components/commands/output-history";
+import { OutputIp } from "@/components/commands/output-ip";
+import { OutputMatrix } from "@/components/commands/output-matrix";
+import { OutputNeofetch } from "@/components/commands/output-neofetch";
 import { OutputProjects } from "@/components/commands/output-projects";
+import { OutputRps } from "@/components/commands/output-rps";
 import { OutputSkills } from "@/components/commands/output-skills";
+import { OutputSudoHire } from "@/components/commands/output-sudo-hire";
+import { OutputTheme } from "@/components/commands/output-theme";
+import { OutputUptime } from "@/components/commands/output-uptime";
+import { OutputWeather } from "@/components/commands/output-weather";
+import { OutputWhoami } from "@/components/commands/output-whoami";
+import { play, type Move } from "./rps-score";
 
 export type CommandCategory = "navigation" | "fun" | "utility";
 
@@ -18,8 +31,42 @@ export interface Command {
   handler: (args: string[]) => ReactNode;
 }
 
-const placeholder = (): ReactNode =>
-  createElement("span", null, "Command output coming in Phase 6");
+function muted(text: string): ReactNode {
+  return createElement(
+    "span",
+    { style: { color: "var(--color-muted)" } },
+    text
+  );
+}
+
+function hashHandler(args: string[]): ReactNode {
+  const text = args.join(" ").trim();
+  if (!text) return muted("Usage: hash [text]");
+  return createElement(OutputHash, { text });
+}
+
+function rpsHandler(args: string[]): ReactNode {
+  const move = args[0]?.toLowerCase();
+  if (move !== "rock" && move !== "paper" && move !== "scissors") {
+    return muted("Usage: rps [rock|paper|scissors]");
+  }
+  const round = play(move as Move);
+  return createElement(OutputRps, round);
+}
+
+function asciiHandler(args: string[]): ReactNode {
+  const text = args.join(" ").trim();
+  if (!text) return muted("Usage: ascii [text]");
+  return createElement(OutputAscii, { text });
+}
+
+function themeHandler(args: string[]): ReactNode {
+  const color = args[0]?.toLowerCase();
+  if (color !== "green" && color !== "amber") {
+    return muted("Available themes: green, amber");
+  }
+  return createElement(OutputTheme, { color });
+}
 
 export const commands: Command[] = [
   {
@@ -87,98 +134,98 @@ export const commands: Command[] = [
     description: "Clear terminal",
     usage: "clear",
     category: "utility",
-    handler: placeholder,
+    handler: () => null,
   },
   {
     name: "refresh",
     description: "Reload page",
     usage: "refresh",
     category: "utility",
-    handler: placeholder,
+    handler: () => muted("Reloading…"),
   },
   {
     name: "whoami",
     description: "Who am I?",
     usage: "whoami",
     category: "fun",
-    handler: placeholder,
+    handler: () => createElement(OutputWhoami),
   },
   {
     name: "neofetch",
     description: "System info card",
     usage: "neofetch",
     category: "fun",
-    handler: placeholder,
+    handler: () => createElement(OutputNeofetch),
   },
   {
     name: "hash",
     description: "SHA-256 + MD5 of text",
     usage: "hash [text]",
     category: "utility",
-    handler: placeholder,
+    handler: hashHandler,
   },
   {
     name: "ip",
     description: "Your IP + location",
     usage: "ip",
     category: "fun",
-    handler: placeholder,
+    handler: () => createElement(OutputIp),
   },
   {
     name: "weather",
     description: "Current weather at your location",
     usage: "weather",
     category: "fun",
-    handler: placeholder,
+    handler: () => createElement(OutputWeather),
   },
   {
     name: "rps",
     description: "Rock paper scissors",
     usage: "rps [rock|paper|scissors]",
     category: "fun",
-    handler: placeholder,
+    handler: rpsHandler,
   },
   {
     name: "ascii",
     description: "ASCII block art",
     usage: "ascii [text]",
     category: "fun",
-    handler: placeholder,
+    handler: asciiHandler,
   },
   {
     name: "matrix",
     description: "Matrix rain (10s)",
     usage: "matrix",
     category: "fun",
-    handler: placeholder,
+    handler: () => createElement(OutputMatrix),
   },
   {
     name: "theme",
     description: "Switch accent color",
     usage: "theme [green|amber]",
     category: "utility",
-    handler: placeholder,
+    handler: themeHandler,
   },
   {
     name: "uptime",
     description: "Time since page load",
     usage: "uptime",
     category: "utility",
-    handler: placeholder,
+    handler: () => createElement(OutputUptime),
   },
   {
     name: "history",
     description: "Commands run this session",
     usage: "history",
     category: "utility",
-    handler: placeholder,
+    handler: () => createElement(OutputHistory),
   },
   {
     name: "sudo hire aryan",
     description: "Try it and see",
     usage: "sudo hire aryan",
     category: "fun",
-    handler: placeholder,
+    handler: () => createElement(OutputSudoHire),
   },
   {
     name: "man",
