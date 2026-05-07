@@ -22,11 +22,8 @@ export function OutputUptime() {
 
   return (
     <div style={{ fontFamily: "var(--font-mono)" }}>
-      <span>⏱  </span>
-      <span style={{ color: "var(--color-muted)" }}>Page loaded: </span>
-      <span style={{ color: "var(--color-text)" }}>
-        {format(now - pageLoadedAt)} ago
-      </span>
+      <span style={{ color: "var(--color-muted)" }}>uptime: </span>
+      <span style={{ color: "var(--color-text)" }}>{format(now - pageLoadedAt)}</span>
     </div>
   );
 }

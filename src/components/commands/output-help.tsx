@@ -21,13 +21,11 @@ const NAVIGATION: HelpCommand[] = [
 
 const FUN: HelpCommand[] = [
   { name: "whoami", description: "Who am I?" },
-  { name: "neofetch", description: "System info card" },
   { name: "hash [text]", description: "SHA-256 + MD5 of text" },
   { name: "ip", description: "Your IP + location" },
   { name: "weather", description: "Current weather" },
   { name: "rps [move]", description: "Rock paper scissors" },
   { name: "ascii [text]", description: "ASCII block art" },
-  { name: "matrix", description: "Matrix rain (10s)" },
   { name: "theme [color]", description: "Switch accent color" },
   { name: "uptime", description: "Time since page load" },
   { name: "history", description: "Commands this session" },

@@ -8,8 +8,6 @@ import { OutputHash } from "@/components/commands/output-hash";
 import { OutputHelp } from "@/components/commands/output-help";
 import { OutputHistory } from "@/components/commands/output-history";
 import { OutputIp } from "@/components/commands/output-ip";
-import { OutputMatrix } from "@/components/commands/output-matrix";
-import { OutputNeofetch } from "@/components/commands/output-neofetch";
 import { OutputProjects } from "@/components/commands/output-projects";
 import { OutputRps } from "@/components/commands/output-rps";
 import { OutputSkills } from "@/components/commands/output-skills";
@@ -151,13 +149,6 @@ export const commands: Command[] = [
     handler: () => createElement(OutputWhoami),
   },
   {
-    name: "neofetch",
-    description: "System info card",
-    usage: "neofetch",
-    category: "fun",
-    handler: () => createElement(OutputNeofetch),
-  },
-  {
     name: "hash",
     description: "SHA-256 + MD5 of text",
     usage: "hash [text]",
@@ -191,13 +182,6 @@ export const commands: Command[] = [
     usage: "ascii [text]",
     category: "fun",
     handler: asciiHandler,
-  },
-  {
-    name: "matrix",
-    description: "Matrix rain (10s)",
-    usage: "matrix",
-    category: "fun",
-    handler: () => createElement(OutputMatrix),
   },
   {
     name: "theme",
