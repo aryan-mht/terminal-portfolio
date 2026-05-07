@@ -37,3 +37,14 @@ next-env.d.ts
 
 # scaffold temp dir
 /temp-scaffold
+
+# claude code local config
+/.claude/
+
+# screenshots / scratch images at project root
+/*.png
+/*.jpg
+/*.jpeg
+
+# resume PDF lives in public/, not at root
+/Resume.pdf

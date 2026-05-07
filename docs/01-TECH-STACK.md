@@ -9,8 +9,10 @@
 | Language | TypeScript (strict mode) | Type safety, no `any` |
 | Styling | Tailwind CSS | Utility-first, no CSS files per component |
 | Animation | Framer Motion | Declarative, `prefers-reduced-motion` support |
-| Font (primary) | JetBrains Mono | Terminal aesthetic, monospace everywhere |
-| Font (hero only) | Press Start 2P | Pixel font for "ARYAN" ASCII name, nowhere else |
+| Font (primary) | System mono stack | Terminal aesthetic — `ui-monospace` first, then Cascadia Code / Source Code Pro / Menlo / Consolas / Liberation Mono / Monaco / DejaVu Sans Mono / `monospace`. No web download. |
+| Font (retro accent) | VT323 (Google Fonts) | CRT-terminal feel, used for hero welcome line |
+| Font (ASCII art) | Courier New (system) | Box-drawing glyphs tile cleanly at line-height: 1 |
+| Font (pixel, reserved) | Press Start 2P (Google Fonts) | Loaded but currently unused; kept for future pixel accents |
 | Class utility | clsx + tailwind-merge | Conditional classes via `cn()` helper |
 
 ---
