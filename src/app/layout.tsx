@@ -1,14 +1,8 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Press_Start_2P, VT323 } from "next/font/google";
+import { Press_Start_2P, VT323 } from "next/font/google";
 import { Navbar } from "@/components/layout/navbar";
 import { StatusBar } from "@/components/layout/status-bar";
 import "./globals.css";
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
-  display: "swap",
-});
 
 const pressStart2P = Press_Start_2P({
   subsets: ["latin"],
@@ -37,9 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${jetbrainsMono.variable} ${pressStart2P.variable} ${vt323.variable}`}
-      >
+      <body className={`${pressStart2P.variable} ${vt323.variable}`}>
         <Navbar />
         {children}
         <StatusBar />
